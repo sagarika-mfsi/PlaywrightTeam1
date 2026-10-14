@@ -1,13 +1,18 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { on } from 'cluster';
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true,
   reporter: 'html',
-
+  timeout : 40000,
+  expect:{
+    timeout : 60000
+  },
   use: {
-    headless:false
+    headless:false,
+    screenshot : "on",
+    trace : "on",
   },
 
   /* Configure projects for major browsers */
