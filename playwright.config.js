@@ -1,18 +1,18 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
-import { on } from 'cluster';
 
 export default defineConfig({
   testDir: './tests',
   reporter: 'html',
-  timeout : 40000,
-  expect:{
-    timeout : 60000
+  timeout: 40000,
+  expect: {
+    timeout: 60000
   },
   use: {
-    headless:false,
-    screenshot : "on",
-    trace : "on",
+    headless: false,
+    screenshot: "only-on-failure", //'on', 'off', 'only-on-failure', 'on-first-failure'
+    trace: "retain-on-failure", //'off', 'on', 'on-first-retry', 'on-all-retries','retain-on-failure', 'retain-on-first-failure', 'retain-on-failure-and-retries'
+    video: "retain-on-failure", //"retry-with-video", 'off', 'on', 'on-first-retry', 'on-all-retries','retain-on-failure', 'retain-on-first-failure', 'retain-on-failure-and-retries'
   },
 
   /* Configure projects for major browsers */
