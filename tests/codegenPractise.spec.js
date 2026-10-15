@@ -5,6 +5,7 @@ test('test', async ({ page }) => {
   // await page.getByRole('searchbox', { name: 'Search Amazon' }).fill('laptops');
   // await page.getByRole('searchbox', { name: 'Search Amazon' }).press('Enter');
   let searchbox = page.getByRole('searchbox', { name: 'Search Amazon' });
+  
   await searchbox.fill('laptops');
   await searchbox.press('Enter');
   await page.locator('#a-autoid-1').getByRole('button', { name: 'Add to cart' }).click();

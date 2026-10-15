@@ -10,9 +10,14 @@ export default defineConfig({
   },
   use: {
     headless: false,
-    screenshot: "only-on-failure", //'on', 'off', 'only-on-failure', 'on-first-failure'
-    trace: "retain-on-failure", //'off', 'on', 'on-first-retry', 'on-all-retries','retain-on-failure', 'retain-on-first-failure', 'retain-on-failure-and-retries'
-    video: "retain-on-failure", //"retry-with-video", 'off', 'on', 'on-first-retry', 'on-all-retries','retain-on-failure', 'retain-on-first-failure', 'retain-on-failure-and-retries'
+    viewport: {
+      width: 500,
+      height: 500
+    }
+
+    // screenshot: "only-on-failure", //'on', 'off', 'only-on-failure', 'on-first-failure'
+    // trace: "retain-on-failure", 
+    // video: "retain-on-failure", 
   },
 
   /* Configure projects for major browsers */
