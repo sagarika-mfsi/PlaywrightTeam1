@@ -1,4 +1,4 @@
-const { test, devices } = require('@playwright/test');
+const { test} = require('@playwright/test');
 const { chromium } = require('@playwright/test');
 
 test('browser handling', async () => {
@@ -17,7 +17,7 @@ test('browser handling', async () => {
     await browser.close();
 });
 
-test.only(
+test(
     'light mode', async ({ page }) => {
         await page.setViewportSize({
             width: 500,
