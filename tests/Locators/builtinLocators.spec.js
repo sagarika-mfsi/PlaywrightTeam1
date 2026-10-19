@@ -24,5 +24,7 @@ test(
         //getByLabel
         //getByTestId
         //getByTitle
+        const pageTitle = page.getByTitle('OrangeHRM');
+        await expect(page).toHaveTitle(pageTitle)
     }
 )
