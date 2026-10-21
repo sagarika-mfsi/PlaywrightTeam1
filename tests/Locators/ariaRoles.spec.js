@@ -36,15 +36,18 @@ test.only(
 
         const checkbox = page.getByRole('checkbox', { name: 'Wednesday' });
         await checkbox.check();
+        //add assertions
 
         const radio = page.getByRole('radio', { name: 'Female' });
         await radio.check();
+        //add assertions
 
         const heading = page.getByRole('heading', { name: 'Automation Testing Practice' });
         console.log(await heading.innerText());
 
         await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
-        const logo = page.getByRole('img', { name: 'naveenopencart' }); //--? accessible name shoing image but it is accepting img
+        const logo = page.getByRole('img', { name: 'naveenopencart' }); //---check img/image
         await expect(logo).toBeVisible();
+
     }
 )
