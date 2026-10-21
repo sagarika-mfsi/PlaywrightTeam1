@@ -6,10 +6,10 @@ test(
         await page.locator('#female').check();
         const ele = await page.getByLabel('Female');
         await expect(ele).toBeChecked();
-        //await expect(ele.isChecked()).toBeTruthy();
+        await expect(await ele.isChecked()).toBeTruthy();
 
         const male = await page.locator('#male');
-        //console.log(await page.getByLabel('Male').count());
+        console.log(await page.getByLabel('Male').count());
         await expect(male).not.toBeChecked();
     }
 )
