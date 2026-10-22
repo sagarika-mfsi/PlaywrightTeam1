@@ -8,10 +8,12 @@ test(
         await email.pressSequentially('sagarikas@mindfiresolutions.com')
 
         const pwd = page.getByRole('textbox', { name: 'Password' });
-        await pwd.type('test123', { delay: 1000 });
+        
+        await pwd.type('test123', { delay: 1000 });        //not preferable
+
         await pwd.clear();
         await pwd.press('$');
-        
+
         await page.getByRole('button', { name: 'Log in' }).press('Enter');
     }
 )

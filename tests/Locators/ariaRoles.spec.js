@@ -46,7 +46,7 @@ test.only(
         console.log(await heading.innerText());
 
         await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
-        const logo = page.getByRole('img', { name: 'naveenopencart' }); //---check img/image
+        const logo = page.getByRole('img', { name: 'naveenopencart' });
         await expect(logo).toBeVisible();
 
     }
