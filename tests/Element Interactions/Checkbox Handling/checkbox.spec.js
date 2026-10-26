@@ -13,10 +13,12 @@ test(
         const preferences = [' Automation', ' API Testing', ' Performance', ' Security'];
         for (let options of preferences) {
             await page.getByLabel(options).check();
+            await expect(page.getByLabel(options)).toBeChecked();
         }
 
         for (let options of preferences) {
             await page.getByLabel(options).uncheck();
+            await expect(page.getByLabel(options)).not.toBeChecked();
         }
     }
 )
