@@ -6,6 +6,10 @@ test(
         await expect(page).toHaveTitle('Dropdown menus page for Automation Testing Practice');
 
         const dropdown = page.locator('#dropdown');
+
+        await dropdown.selectOption({ label: "Option 1" });
+        await expect(dropdown).toHaveValue('1');
+
         await dropdown.selectOption({ value: "1" });
         await expect(dropdown).toHaveValue('1');
 
