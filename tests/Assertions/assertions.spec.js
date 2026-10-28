@@ -67,12 +67,12 @@ expect.extend({
     },
 });
 
-test('Custom assertion logic', async () => {
+test('Custom assertion logic2', async () => {
     expect('abc_123.jpg').toStartWithAssetPrefix();
     // expect('abc_123.jpg').toStartWithAssetPrefix();
 });
 
-test.only('Custom assertion logic2', async () => {
+test.only('Custom assertion logic3', async () => {
     //expect('abc_123.jpg').toHaveValidAssetExtension();
     expect('abc_123.tiff').toHaveValidAssetExtension();
 });
