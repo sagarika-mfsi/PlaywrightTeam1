@@ -29,10 +29,14 @@ test('Auto suggestive dropdown Blinkit', async ({ page }) => {
     const options = await page.$$('#autosuggest_snippet_1 div.tw-flex-row');
 
     for (let i = 0; i < options.length; i++) {
+
         const text = await options[i].innerText(); // innerText matches rendered visible text
-        
-        if (text.toLowerCase().includes('healthy')) {
-            await options[i].click();
+        //
+        if (text.toLowerCase().includes('healthy')) {//match exact text
+             
+             //assert
+            await options[i].click(); //
+            //assert
             break;
         }
     }
