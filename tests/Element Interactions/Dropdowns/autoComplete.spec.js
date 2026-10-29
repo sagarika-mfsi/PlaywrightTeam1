@@ -33,8 +33,7 @@ test('Auto suggestive dropdown Blinkit', async ({ page }) => {
     for (let i = 0; i < options.length; i++) {
 
         const text = (await options[i].innerText()).trim(); // innerText matches rendered visible text
-        //
-        if (text.toLowerCase().includes('healthy')) {
+        if (text.toLowerCase().includes('healthy')) { //do exact comapare
 
             expect(text.toLowerCase()).toContain('healthy');
             selectedSuggestionText = text.toLowerCase();;
