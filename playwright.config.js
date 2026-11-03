@@ -13,7 +13,8 @@ export default defineConfig({
     viewport: {
       width: 500,
       height: 500
-    }
+    },
+    navigationTimeout: 15000,
 
     // screenshot: "only-on-failure", //'on', 'off', 'only-on-failure', 'on-first-failure'
     // trace: "retain-on-failure", 

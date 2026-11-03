@@ -63,3 +63,16 @@ test('Notification Messages: Assertion retries and test stability', async ({ pag
     }
 })
 
+test('Slow Loading: Configure timeouts', async ({ page }) => {
+
+    await page.goto('https://the-internet.herokuapp.com/slow', {
+        timeout: 1,
+        waitUntil: 'domcontentloaded'
+    });
+
+    await expect(page).toHaveTitle('The Internet');
+
+    const heading = page.getByRole('heading', {name: 'Slow Resources'});
+
+    await expect(heading).toBeVisible();
+});
