@@ -17,8 +17,6 @@ test("SimpleAlterHandling", async ({ page }) => {
 
     await expect(page.getByText('You triggered and handled the alert dialog')).toBeVisible();
 
-    await page.waitForTimeout(3000);
-
 })
 
 test("ConfirmAlterHandling", async ({ page }) => {
