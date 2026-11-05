@@ -76,3 +76,5 @@ test('Slow Loading: Configure timeouts', async ({ page }) => {
 
     await expect(heading).toBeVisible();
 });
+
+

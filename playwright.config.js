@@ -14,6 +14,7 @@ export default defineConfig({
       width: 500,
       height: 500
     },
+    
     navigationTimeout: 15000,
 
     // screenshot: "only-on-failure", //'on', 'off', 'only-on-failure', 'on-first-failure'
