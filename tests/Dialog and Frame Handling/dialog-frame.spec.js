@@ -64,3 +64,12 @@ test("PromptAlterHandling", async ({ page }) => {
     await expect(page.locator('#promptreturn')).toHaveText('Test ABC')
 
 })
+
+test('console events', async ({page})=>{
+    await page.goto('https://www.facebook.com/');
+    page.on('console', message => {
+    console.log('Console type:', message.type());
+    console.log('Console message:', message.text());
+});
+
+})
