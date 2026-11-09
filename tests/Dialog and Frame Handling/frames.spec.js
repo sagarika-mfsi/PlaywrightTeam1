@@ -92,8 +92,36 @@ test('Handle nested frames', async ({ page }) => {
 test('Navigate and interact with multiple frames', async ({ page }) => {
     await page.goto('https://the-internet.herokuapp.com/nested_frames', { waitUntil: 'domcontentloaded' });
 
+    await expect.poll(() => page.frames().length, { timeout: 15000 }).toBe(6);
     const allFrames = page.frames();
-
     console.log(allFrames.length);
+
+    for (let frames of allFrames) {
+        console.log(frames.name());
+        console.log(frames.url());
+    }
+
+    const topFrame = page.frameLocator('frame[src*="frame_top"]');
+    const leftFrame = topFrame.frameLocator('frame[src*="frame_left"]');
+    const innerText = leftFrame.locator('body');
+    await expect(innerText).toContainText('LEFT');
+
+    const middleFrame = topFrame.frameLocator('frame[src*="frame_middle"]');
+    const innerText2 = middleFrame.locator('#content');
+    await expect(innerText2).toHaveText('MIDDLE');
+
+    const rightFrame = topFrame.frameLocator('frame[src*="frame_right"]');
+    const innerText3 = rightFrame.locator('body');
+    await expect(innerText3).toHaveText('RIGHT');
+
+    const bottomFrame = page.frameLocator('frame[src*="frame_bottom"]');
+    const innerText4 = bottomFrame.locator('body');
+    await expect(innerText4).toHaveText('BOTTOM');
+
+    await page.goto('https://www.w3schools.com/html/html_iframe.asp');
+    const myPage = page.frame({ url: /default\.asp/ });
+    await myPage.goto('https://www.wikipedia.org');
+    expect(myPage.url()).toContain('wikipedia.org');
+    expect(page.url()).toBe('https://www.w3schools.com/html/html_iframe.asp');
 
 })
