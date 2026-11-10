@@ -65,16 +65,103 @@ test('Notification Messages: Assertion retries and test stability', async ({ pag
 
 test('Slow Loading: Configure timeouts', async ({ page }) => {
 
-    await page.goto('https://the-internet.herokuapp.com/slow', {
-        timeout: 1,
-        waitUntil: 'domcontentloaded'
-    });
+    await page.goto('https://the-internet.herokuapp.com/slow', {timeout: 1,waitUntil: 'domcontentloaded'});
 
     await expect(page).toHaveTitle('The Internet');
 
-    const heading = page.getByRole('heading', {name: 'Slow Resources'});
+    const heading = page.getByRole('heading', { name: 'Slow Resources' });
 
     await expect(heading).toBeVisible();
 });
 
+test('Explicit wait for element visibility', async ({ page }) => {
 
+    await page.goto('https://the-internet.herokuapp.com/dynamic_loading/1');
+
+    await page.getByRole('button', { name: 'Start' }).click();
+
+    const result = page.locator('#finish');
+
+    await result.waitFor({ state: 'visible', timeout: 10000 });
+
+    await expect(result).toContainText('Hello World!');
+});
+
+test('Wait until checkbox is detached', async ({ page }) => {
+
+    await page.goto('https://the-internet.herokuapp.com/dynamic_controls');
+
+    const checkbox = page.locator('#checkbox');
+
+    await expect(checkbox).toBeVisible();
+
+    await page.getByRole('button', { name: 'Remove' }).click();
+
+    await checkbox.waitFor({ state: 'detached', timeout: 10000 });
+
+    await expect(checkbox).toHaveCount(0);
+
+    await page.locator("//form/button[text()='Add']").click();
+    await checkbox.waitFor({ state: 'visible', timeout: 10000 });
+
+    await expect(checkbox).toBeVisible();
+});
+
+test('Explicit wait for URL change', async ({ page }) => {
+
+    await page.goto('https://the-internet.herokuapp.com/login');
+
+    await page.locator('#username').fill('tomsmith');
+
+    await page.locator('#password').fill('SuperSecretPassword!');
+
+    page.getByRole('button', { name: 'Login' }).click()
+    page.waitForURL('**/secure');
+
+    await expect(page.locator('#flash')).toContainText('You logged into a secure area!');
+
+});
+
+test('Wait for document load state', async ({ page }) => {
+
+    await page.goto('https://the-internet.herokuapp.com/', { waitUntil: 'domcontentloaded' });
+
+    await page.waitForLoadState('load');
+    await expect(page).toHaveTitle('The Internet');
+});
+
+test('Assertion timeout example', async ({ page }) => {
+
+    await page.goto('https://the-internet.herokuapp.com/dynamic_loading/1');
+
+    await page.getByRole('button', { name: 'Start' }).click();
+
+    const result = page.locator('#finish');
+
+    await expect(result).toBeVisible({ timeout: 10000 });
+
+    await expect(result).toContainText('Hello World!');
+});
+
+test('Action timeout example', async ({ page }) => {
+
+    await page.goto('https://the-internet.herokuapp.com/login');
+
+    const username = page.locator('#username');
+
+    await username.fill('tomsmith', { timeout: 3000 });
+
+    const password = page.locator('#password');
+
+    await password.fill('SuperSecretPassword!', { timeout: 3000 });
+
+    await page.getByRole('button', { name: 'Login' }).click({ timeout: 3000 });
+
+    await expect(page.locator('#flash')).toContainText('You logged into a secure area!');
+});
+
+test('Navigation timeout example', async ({ page }) => {
+    //test.setTimeout(60000); //Override timeout for an individual test
+    await page.goto('https://the-internet.herokuapp.com/', { timeout: 15000, waitUntil: 'domcontentloaded' });
+    await expect(page).toHaveTitle('The Internet');
+});
