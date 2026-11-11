@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pagination Web Table</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f8f8f8;
+        font-size: 18px;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .pagination button {
+        border: none;
+        padding: 10px 16px;
+        margin: 0 3px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+    }
+
+    .pagination button.active {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .pagination button:hover {
+        background-color: #dcdcdc;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Pagination Web Table</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Select</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <!-- Rows injected by JavaScript -->
+    </tbody>
+</table>
+
+<div class="pagination" id="pagination"></div>
+
+<script>
+const data = [
+    {id: 1, name: "Smartphone", price: "$10.99"},
+    {id: 2, name: "Laptop", price: "$19.99"},
+    {id: 3, name: "Tablet", price: "$5.99"},
+    {id: 4, name: "Smartwatch", price: "$7.99"},
+    {id: 5, name: "Wireless Earbuds", price: "$8.99"},
+
+    {id: 6, name: "Camera", price: "$12.99"},
+    {id: 7, name: "Keyboard", price: "$4.99"},
+    {id: 8, name: "Mouse", price: "$3.99"},
+    {id: 9, name: "Monitor", price: "$15.99"},
+    {id: 10, name: "Speaker", price: "$9.99"},
+
+    {id: 11, name: "Printer", price: "$18.99"},
+    {id: 12, name: "Scanner", price: "$14.99"},
+    {id: 13, name: "Router", price: "$6.99"},
+    {id: 14, name: "Modem", price: "$5.49"},
+    {id: 15, name: "Power Bank", price: "$7.49"},
+
+    {id: 16, name: "USB Cable", price: "$1.99"},
+    {id: 17, name: "Hard Drive", price: "$20.99"},
+    {id: 18, name: "SSD", price: "$25.99"},
+    {id: 19, name: "RAM", price: "$11.99"},
+    {id: 20, name: "Graphics Card", price: "$45.99"},
+
+    {id: 21, name: "Webcam", price: "$6.99"},
+    {id: 22, name: "Microphone", price: "$8.49"},
+    {id: 23, name: "Headphones", price: "$9.49"},
+    {id: 24, name: "Joystick", price: "$13.99"},
+    {id: 25, name: "Gamepad", price: "$12.49"},
+
+    {id: 26, name: "Projector", price: "$30.99"},
+    {id: 27, name: "VR Headset", price: "$55.99"},
+    {id: 28, name: "Smart TV", price: "$75.99"},
+    {id: 29, name: "Streaming Stick", price: "$6.49"},
+    {id: 30, name: "WiFi Extender", price: "$8.99"},
+
+    {id: 31, name: "Bluetooth Adapter", price: "$3.49"},
+    {id: 32, name: "Docking Station", price: "$22.99"},
+    {id: 33, name: "Stylus Pen", price: "$4.49"},
+    {id: 34, name: "Laptop Stand", price: "$7.99"},
+    {id: 35, name: "Cooling Pad", price: "$6.99"}
+];
+
+const rowsPerPage = 5;
+let currentPage = 1;
+
+function displayTable(page) {
+    const tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    data.slice(start, end).forEach(item => {
+        tableBody.innerHTML += `
+            <tr>
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td>${item.price}</td>
+                <td><input type="checkbox"></td>
+            </tr>`;
+    });
+}
+
+function setupPagination() {
+    const pagination = document.getElementById("pagination");
+    pagination.innerHTML = "";
+
+    const pageCount = Math.ceil(data.length / rowsPerPage);
+
+    for (let i = 1; i <= pageCount; i++) {
+        const btn = document.createElement("button");
+        btn.innerText = i;
+        btn.className = (i === currentPage) ? "active" : "";
+        btn.onclick = () => {
+            currentPage = i;
+            displayTable(currentPage);
+            setupPagination();
+        };
+        pagination.appendChild(btn);
+    }
+}
+
+displayTable(currentPage);
+setupPagination();
+</script>
+
+</body>
+</html>
