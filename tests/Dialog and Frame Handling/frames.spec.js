@@ -17,7 +17,6 @@ test('iFrame handling', async ({ page }) => {
     await expect(inputBox).toBeVisible();
     await inputBox.fill('hello test1');
 
-
 })
 //Query: W3c school iframe > no locator only accessibility locator was there no id, name
 //then how to locate
@@ -125,3 +124,4 @@ test('Navigate and interact with multiple frames', async ({ page }) => {
     expect(page.url()).toBe('https://www.w3schools.com/html/html_iframe.asp');
 
 })
+
