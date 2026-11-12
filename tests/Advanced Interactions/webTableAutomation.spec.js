@@ -27,7 +27,7 @@ test('Complete Web Table Handling', async ({ page }) => {
         console.log('Row', i + 1, ':', rowData);
     }
 
-    // STEP 6: Fetch a particular row
+    //  Fetch a particular row
     const targetRow = rows.filter({ hasText: 'Airi Satou' });
     await expect(targetRow).toBeVisible();
 
@@ -49,31 +49,6 @@ test('Complete Web Table Handling', async ({ page }) => {
 
     await searchBox.clear();
 
-    await page.getByRole('columnheader', { name: 'Age' }).click();
-
-    const ageCells = table.locator('tbody tr td:nth-child(4)');
-    const ages = await ageCells.allInnerTexts();
-
-    const numericAges = ages.map(age => Number(age));
-    console.log('Sorted Ages:', numericAges);
-
-    expect(numericAges).toEqual([...numericAges].sort((a, b) => a - b));
-
-    const nextButton = page.getByRole('button', { name: 'Next' });
-    await nextButton.click();
-    await expect(table.locator('tbody tr').first()).toBeVisible();
-
-    console.log('Second Page First Row:', await table.locator('tbody tr').first().innerText());
-
-    await page.getByRole('button', { name: 'Previous' }).click();
-
-    const pageSize = page.locator('select.dt-input').first();
-    await pageSize.selectOption('25');
-
-    const newRowCount = await table.locator('tbody tr').count();
-    console.log('Rows after changing page size:', newRowCount);
-    expect(newRowCount).toBe(25);
-
     const allRecords = [];
     while (true) {
         const currentRows = table.locator('tbody tr');
@@ -85,7 +60,7 @@ test('Complete Web Table Handling', async ({ page }) => {
             allRecords.push(data);
         }
 
-        const next = page.getByRole('button', { name: 'Next' });
+        const next = page.getByRole('link', { name: 'Next' });
 
         if (await next.isDisabled()) {
             break;

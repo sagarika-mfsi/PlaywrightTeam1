@@ -12,7 +12,7 @@ test('Automate Multiple Tabs', async ({ page }) => {
         page.context().waitForEvent('page'), page.locator('text=Click Here').click()])
 
     await childPage.waitForLoadState()
-    console.log("Child Window Title.", await childPage.title())
+    console.log("Child Window Title:", await childPage.title())
     await expect(childPage.locator('h3')).toHaveText('New Window')
 
     page.bringToFront();
