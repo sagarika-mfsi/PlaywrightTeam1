@@ -1,26 +1,36 @@
 const { test, expect } = require('@playwright/test');
-const path = require('path');
-const fs = require('fs');
+import fs from 'fs'; 
 
-test('Download a file', async ({ page }) => {
-
-    await page.goto('https://demoqa.com/upload-download');
-
-    const downloadPromise = page.waitForEvent('download');
-
-    await page.locator('#downloadButton').click();
-
-    const download = await downloadPromise;
-
+test("single download", async ({ page }) => {
+    await page.goto("https://testyard.onrender.com/practice/files");
+    let downloadEvent = page.waitForEvent("download");
+    await page.locator('[href*="sample.csv"]').click();
+    let download = await downloadEvent;
+ 
     const fileName = download.suggestedFilename();
-
-    console.log('Downloaded file:', fileName);
-
-    const filePath = path.join(__dirname, fileName);
+    expect(fileName).toBe("sample.csv");
+ 
+    const filePath = `downloads/${fileName}`;
     await download.saveAs(filePath);
-
     expect(fs.existsSync(filePath)).toBeTruthy();
+ 
+})
 
-    expect(fs.statSync(filePath).size).toBeGreaterThan(0);
-});
 
+test('multiple file download', async ({ page }) => {
+    await page.goto("https://testyard.onrender.com/practice/files");
+    const files = [
+        "sample.csv",
+        "sample.json",
+        "sample.txt"
+    ];
+
+    for (const file of files) {
+        const downloadEvent = page.waitForEvent("download");
+        await page.locator(`[href*="${file}"]`).click();
+        const download = await downloadEvent;
+        console.log(download.suggestedFilename());
+        await download.saveAs(`downloads/${file}`);
+    }
+
+})
