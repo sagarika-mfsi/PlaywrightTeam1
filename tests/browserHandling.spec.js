@@ -76,3 +76,18 @@ test.only(
         await newPage.close();
     }
 )
+
+
+test('Handle a new tab', async ({ page }) => {
+  await page.goto('https://the-internet.herokuapp.com/windows');
+
+  const popupPromise = page.waitForEvent('popup');
+
+  await page.getByText('Click Here').click();
+
+  const popup = await popupPromise;
+
+  await expect(popup).toHaveURL(/\/windows\/new/);
+
+  await expect(popup.locator('h3')).toHaveText('New Window');
+});

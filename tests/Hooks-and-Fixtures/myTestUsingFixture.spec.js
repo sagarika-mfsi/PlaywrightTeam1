@@ -1,4 +1,4 @@
-const { test, expect } = require('../Hooks-and-Fixtures/fixtures.spec');
+const { test, expect } = require('./fixtures.js');
 
 test('Verify products page', async ({ loggedInPage }) => {
 
