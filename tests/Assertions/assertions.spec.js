@@ -40,7 +40,7 @@ test('Hard vs. soft assertions', async ({ page }) => {
 })
 
 
-test.only('Custom assertion logic', async ({ page }) => {
+test.only('Custom assertion logic', async () => {
     expect('abc_123.jpg').toStartWithAssetPrefix();
 })
 

@@ -11,6 +11,7 @@ test('Bootstrap dropdown', async ({ page }) => {
     await dropdown.click();
 
     const dropdownOptions = page.locator('#bd-job-title-menu>li');
+    
     for (let i = 0; i < 10; i++) {
         await expect(dropdownOptions.nth(i)).toBeVisible();
     }
