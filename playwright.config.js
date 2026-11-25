@@ -5,7 +5,7 @@ export default defineConfig({
   testDir: './tests',
   reporter: 'html',
   timeout: 40000,
-  
+
   expect: {
     timeout: 60000
   },
