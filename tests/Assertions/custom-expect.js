@@ -8,6 +8,6 @@ expect.extend({
             message: () =>
                 `Expected "${received}" to start with "asset_"`,
         };
-    },
+    }
 });
 module.exports = { expect };
