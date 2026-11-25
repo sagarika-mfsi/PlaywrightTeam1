@@ -18,9 +18,6 @@ export default defineConfig({
     actionTimeout: 10000,
     navigationTimeout: 15000,
     globalTimeout: 60000,
-    // screenshot: "only-on-failure", //'on', 'off', 'only-on-failure', 'on-first-failure'
-    // trace: "retain-on-failure", 
-    // video: "retain-on-failure", 
   },
 
   /* Configure projects for major browsers */
