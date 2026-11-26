@@ -91,3 +91,18 @@ test('Handle a new tab', async ({ page }) => {
 
   await expect(popup.locator('h3')).toHaveText('New Window');
 });
+
+
+test('newTab Handle', async ({page, context})=>{
+    await page.goto('https://demoqa.com/browser-windows');
+
+    const tabHandle = context.waitForEvent('page');
+    await page.locator('#tabButton').click();
+    const newTab = await tabHandle;
+
+    await newTab.bringToFront();
+    await expect(newTab.locator('#sampleHeading')).toHaveText('This is a sample page');
+
+    await page.bringToFront();
+    await page.close();
+})
