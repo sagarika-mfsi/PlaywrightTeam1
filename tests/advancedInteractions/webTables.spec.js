@@ -69,3 +69,34 @@ test('Pagination table automation', async ({ page }) => {
         }
     }
 });
+
+test('practise webTable', async ({page})=>{
+    await page.goto('https://qaplayground.com/practice/data-table');
+
+    const table = page.locator('table[data-testid="data-table"]');
+    await expect(table).toBeVisible();
+
+    const rows = table.locator('tbody tr');
+    console.log(await(rows.count()));
+    
+    const columns = table.locator('thead th');
+    console.log(await(columns.count()));
+
+    const textExtract = rows.filter({hasText:'Clean Code'});
+    const text = await textExtract.locator('td').nth(1).textContent();
+    console.log(text);
+
+    const textExtract2 = rows.filter({hasText:'Dune'});
+    const text2 = await textExtract2.locator('td').nth(4).textContent();
+    console.log(text2);
+    
+     await page.getByRole('button', { name: '3' }).click();
+
+    const dataRow = rows.filter({hasText:'Douglas Adams'});
+    const edit = dataRow.getByRole('button',{name:"Edit The Hitchhiker's Guide to the Galaxy"} );
+    await edit.click();
+
+
+
+
+})
